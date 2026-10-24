@@ -1,0 +1,890 @@
+<header class="header">
+    <div class="navbar container">
+
+        <div class="logo">
+            <a routerLink="/">
+                <img src="/Imagenes/logo cuarto.png" alt="Logo SpaceGo">
+            </a>
+        </div>
+
+        <button type="button" class="menu-icon">
+            &#9776;
+        </button>
+
+        <nav class="menu">
+            <ul>
+                <li>
+                    <a routerLink="/">Inicio</a>
+                </li>
+
+                <li>
+                    <a routerLink="/buscar">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        Buscar alojamiento
+                    </a>
+                </li>
+
+
+
+                <li>
+                    <a routerLink="/publicar" class="activo">
+                        <i class="fa-solid fa-plus"></i>
+                        Publicar alojamiento
+                    </a>
+                </li>
+
+                <li>
+                    <a routerLink="/favoritos">
+                        <i class="fa-regular fa-heart"></i>
+                        Favoritos
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+    </div>
+</header>
+
+
+<section class="publicar-hero">
+    <div class="container">
+        <span class="hero-etiqueta">PUBLICA TU ESPACIO</span>
+
+        <h1>Publica tu alojamiento</h1>
+
+        <p>
+            Completa estos 5 pasos y tu anuncio quedará listo
+            para que otros lo encuentren.
+        </p>
+    </div>
+</section>
+
+
+<main class="contenedor-principal container">
+
+    <section class="publicar-section">
+
+        <!-- STEPPER -->
+        <ol class="stepper-publicar">
+
+            <li
+                class="paso-item"
+                [class.is-activo]="pasoActual === 1"
+                [class.is-completo]="pasoActual > 1">
+
+                <button
+                    type="button"
+                    class="paso-btn"
+                    (click)="irAlPaso(1)"
+                    [disabled]="!puedeIrAlPaso(1)">
+
+                    <span class="paso-num">1</span>
+                    <span class="paso-label">Información</span>
+
+                </button>
+            </li>
+
+
+            <li
+                class="paso-item"
+                [class.is-activo]="pasoActual === 2"
+                [class.is-completo]="pasoActual > 2">
+
+                <button
+                    type="button"
+                    class="paso-btn"
+                    (click)="irAlPaso(2)"
+                    [disabled]="!puedeIrAlPaso(2)">
+
+                    <span class="paso-num">2</span>
+                    <span class="paso-label">Ubicación</span>
+
+                </button>
+            </li>
+
+
+            <li
+                class="paso-item"
+                [class.is-activo]="pasoActual === 3"
+                [class.is-completo]="pasoActual > 3">
+
+                <button
+                    type="button"
+                    class="paso-btn"
+                    (click)="irAlPaso(3)"
+                    [disabled]="!puedeIrAlPaso(3)">
+
+                    <span class="paso-num">3</span>
+                    <span class="paso-label">Características</span>
+
+                </button>
+            </li>
+
+
+            <li
+                class="paso-item"
+                [class.is-activo]="pasoActual === 4"
+                [class.is-completo]="pasoActual > 4">
+
+                <button
+                    type="button"
+                    class="paso-btn"
+                    (click)="irAlPaso(4)"
+                    [disabled]="!puedeIrAlPaso(4)">
+
+                    <span class="paso-num">4</span>
+                    <span class="paso-label">Fotos</span>
+
+                </button>
+            </li>
+
+
+            <li
+                class="paso-item"
+                [class.is-activo]="pasoActual === 5">
+
+                <button
+                    type="button"
+                    class="paso-btn"
+                    (click)="irAlPaso(5)"
+                    [disabled]="!puedeIrAlPaso(5)">
+
+                    <span class="paso-num">5</span>
+                    <span class="paso-label">Publicar</span>
+
+                </button>
+            </li>
+
+        </ol>
+
+
+        <!-- FORMULARIO -->
+        <form
+            class="form-publicar"
+            [formGroup]="formulario"
+            (ngSubmit)="guardarYPublicar()"
+            novalidate>
+
+
+            <!-- ================= PASO 1 ================= -->
+
+            @if (pasoActual === 1) {
+
+                <div class="paso-panel is-activo">
+
+                    <h2>Información del alojamiento</h2>
+
+
+                    <div class="campo">
+
+                        <label for="titulo">
+                            Título del alojamiento
+                        </label>
+
+                        <input
+                            type="text"
+                            id="titulo"
+                            formControlName="titulo"
+                            placeholder="Ej. Habitación amoblada en San Miguel"
+                            maxlength="60">
+
+                        <div class="campo-pie">
+
+                            <span class="campo-error">
+
+                                @if (
+                                    formulario.controls.titulo.touched &&
+                                    formulario.controls.titulo.invalid
+                                ) {
+                                    El título es obligatorio.
+                                }
+
+                            </span>
+
+                            <span class="campo-contador">
+                                {{ formulario.controls.titulo.value?.length || 0 }}/60
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="campo-grid">
+
+                        <div class="campo">
+
+                            <label for="tipo">
+                                Tipo de alojamiento
+                            </label>
+
+                            <select
+                                id="tipo"
+                                formControlName="tipo">
+
+                                <option value="">
+                                    Selecciona una opción
+                                </option>
+
+                                <option value="individual">
+                                    Habitación individual
+                                </option>
+
+                                <option value="pareja">
+                                    Espacio para pareja
+                                </option>
+
+                                <option value="minidepa">
+                                    Minidepartamento
+                                </option>
+
+                                <option value="departamento">
+                                    Departamento
+                                </option>
+
+                            </select>
+
+                            @if (
+                                formulario.controls.tipo.touched &&
+                                formulario.controls.tipo.invalid
+                            ) {
+                                <span class="campo-error">
+                                    Selecciona un tipo.
+                                </span>
+                            }
+
+                        </div>
+
+
+                        <div class="campo">
+
+                            <label for="precio">
+                                Precio mensual
+                            </label>
+
+                            <div class="campo-prefijo">
+
+                                <span>S/</span>
+
+                                <input
+                                    type="text"
+                                    inputmode="decimal"
+                                    id="precio"
+                                    formControlName="precio"
+                                    maxlength="10"
+                                    placeholder="650">
+
+                            </div>
+
+                            @if (
+                                formulario.controls.precio.touched &&
+                                formulario.controls.precio.invalid
+                            ) {
+                                <span class="campo-error">
+                                    Ingresa un precio válido.
+                                </span>
+                            }
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="campo">
+
+                        <label for="descripcion">
+                            Descripción
+                        </label>
+
+                        <textarea
+                            id="descripcion"
+                            formControlName="descripcion"
+                            rows="4"
+                            maxlength="300"
+                            placeholder="Cuenta cómo es el ambiente, el barrio y a quién le viene bien.">
+                        </textarea>
+
+                        <div class="campo-pie">
+
+                            <span class="campo-error">
+
+                                @if (
+                                    formulario.controls.descripcion.touched &&
+                                    formulario.controls.descripcion.invalid
+                                ) {
+                                    La descripción es obligatoria.
+                                }
+
+                            </span>
+
+                            <span class="campo-contador">
+                                {{ formulario.controls.descripcion.value?.length || 0 }}/300
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <fieldset class="campo-fieldset">
+
+                        <legend>Datos de contacto</legend>
+
+                        <p class="campo-nota">
+                            Solo los verá alguien interesado en escribirte.
+                        </p>
+
+
+                        <div class="campo-grid">
+
+                            <div class="campo">
+
+                                <label for="correo">
+                                    Correo
+                                </label>
+
+                                <input
+                                    type="email"
+                                    id="correo"
+                                    formControlName="correo"
+                                    maxlength="120"
+                                    placeholder="usuario@gmail.com">
+
+                                @if (
+                                    formulario.controls.correo.touched &&
+                                    formulario.controls.correo.invalid
+                                ) {
+                                    <span class="campo-error">
+                                        Ingresa un correo válido.
+                                    </span>
+                                }
+
+                            </div>
+
+
+                            <div class="campo">
+
+                                <label for="telefono">
+                                    Teléfono
+                                </label>
+
+                                <input
+                                    type="tel"
+                                    id="telefono"
+                                    formControlName="telefono"
+                                    inputmode="numeric"
+                                    maxlength="9"
+                                    placeholder="9XXXXXXXX">
+
+                                @if (
+                                    formulario.controls.telefono.touched &&
+                                    formulario.controls.telefono.invalid
+                                ) {
+                                    <span class="campo-error">
+                                        Ingresa un teléfono de 9 dígitos.
+                                    </span>
+                                }
+
+                            </div>
+
+                        </div>
+
+                    </fieldset>
+
+                </div>
+            }
+
+
+            <!-- ================= PASO 2 ================= -->
+
+            @if (pasoActual === 2) {
+
+                <div class="paso-panel">
+
+                    <h2>Ubicación</h2>
+
+
+                    <div class="campo-grid campo-grid-3">
+
+                        <div class="campo">
+
+                            <label for="departamento">
+                                Departamento
+                            </label>
+
+                            <select
+                                id="departamento"
+                                formControlName="departamento"
+                                (change)="cambiarDepartamento($any($event.target).value)">
+
+                                <option value="">
+                                    Selecciona
+                                </option>
+
+                                @for (
+                                    departamento of ubicaciones;
+                                    track departamento.nombre
+                                ) {
+
+                                    <option [value]="departamento.nombre">
+                                        {{ departamento.nombre }}
+                                    </option>
+
+                                }
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="campo">
+
+                            <label for="provincia">
+                                Provincia
+                            </label>
+
+                            <select
+                                id="provincia"
+                                formControlName="provincia"
+                                [disabled]="provinciasDisponibles.length === 0"
+                                (change)="cambiarProvincia($any($event.target).value)">
+
+                                <option value="">
+                                    Selecciona
+                                </option>
+
+                                @for (
+                                    provincia of provinciasDisponibles;
+                                    track provincia.nombre
+                                ) {
+
+                                    <option [value]="provincia.nombre">
+                                        {{ provincia.nombre }}
+                                    </option>
+
+                                }
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="campo">
+
+                            <label for="distrito">
+                                Distrito
+                            </label>
+
+                            <select
+                                id="distrito"
+                                formControlName="distrito"
+                                [disabled]="distritosDisponibles.length === 0"
+                                (change)="cambiarDistrito($any($event.target).value)">
+
+                                <option value="">
+                                    Selecciona
+                                </option>
+
+                                @for (
+                                    distrito of distritosDisponibles;
+                                    track distrito
+                                ) {
+
+                                    <option [value]="distrito">
+                                        {{ distrito }}
+                                    </option>
+
+                                }
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="campo">
+
+                        <label for="mapa-ubicacion">
+                            Ubicación exacta
+                        </label>
+
+                        <p class="campo-nota">
+                            Haz clic en el mapa o usa tu ubicación actual
+                            para marcar el alojamiento.
+                        </p>
+
+                        <div
+                            id="mapa-ubicacion"
+                            class="mapa-ubicacion"
+                            aria-label="Mapa para seleccionar la ubicación">
+                        </div>
+
+                        <div class="mapa-acciones">
+
+                            <button
+                                type="button"
+                                class="btn btn-secundario">
+
+                                <i class="fa-solid fa-location-crosshairs"></i>
+                                Usar mi ubicación
+
+                            </button>
+
+                            <span class="coordenadas-ubicacion">
+                                Aún no seleccionada
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="campo">
+
+                        <label for="referencia">
+                            Referencia
+                        </label>
+
+                        <input
+                            type="text"
+                            id="referencia"
+                            formControlName="referencia"
+                            maxlength="120"
+                            placeholder="Ej. Cerca de la universidad, a 5 minutos caminando">
+
+                        @if (
+                            formulario.controls.referencia.touched &&
+                            formulario.controls.referencia.invalid
+                        ) {
+                            <span class="campo-error">
+                                Ingresa una referencia.
+                            </span>
+                        }
+
+                    </div>
+
+                </div>
+            }
+
+
+            <!-- ================= PASO 3 ================= -->
+
+            @if (pasoActual === 3) {
+
+                <div class="paso-panel">
+
+                    <h2>¿Qué incluye?</h2>
+
+                    <p class="paso-nota">
+                        Marca todo lo que ya está incluido en el precio.
+                    </p>
+
+
+                    <div class="caracteristicas-grid">
+
+                        @for (
+                            caracteristica of [
+                                'Internet',
+                                'Agua',
+                                'Luz',
+                                'Cocina',
+                                'Baño privado',
+                                'Lavandería',
+                                'Estacionamiento',
+                                'Amoblado'
+                            ];
+                            track caracteristica
+                        ) {
+
+                            <label class="caracteristica">
+
+                                <input
+                                    type="checkbox"
+                                    [value]="caracteristica"
+                                    (change)="cambiarCaracteristica($event, caracteristica)">
+
+                                <span>
+                                    {{ caracteristica }}
+                                </span>
+
+                            </label>
+
+                        }
+
+                    </div>
+
+                </div>
+            }
+
+
+            <!-- ================= PASO 4 ================= -->
+
+            @if (pasoActual === 4) {
+
+                <div class="paso-panel">
+
+                    <h2>Sube fotos</h2>
+
+                    <p class="paso-nota">
+                        Hasta 3 imágenes. La primera será la portada del anuncio.
+                    </p>
+
+
+                    <label
+                        class="btn-subir-foto"
+                        for="fotos">
+
+                        <i class="fa-solid fa-camera"></i>
+                        Seleccionar imágenes
+
+                        <input
+                            type="file"
+                            id="fotos"
+                            accept="image/*"
+                            multiple
+                            hidden
+                            (change)="seleccionarFotos($event)">
+
+                    </label>
+
+
+                    <div class="foto-slots">
+
+                        @for (
+                            numero of [1, 2, 3];
+                            track numero
+                        ) {
+
+                            <div class="foto-slot">
+
+                                <span class="foto-slot-label">
+                                    Foto {{ numero }}
+                                </span>
+
+                                @if (
+                                    fotosSeleccionadas[numero - 1]
+                                ) {
+
+                                    <span>
+                                        {{ fotosSeleccionadas[numero - 1].name }}
+                                    </span>
+
+                                }
+
+                            </div>
+
+                        }
+
+                    </div>
+
+                </div>
+            }
+
+
+            <!-- ================= PASO 5 ================= -->
+
+            @if (pasoActual === 5) {
+
+                <div class="paso-panel">
+
+                    <h2>Revisa antes de publicar</h2>
+
+                    <p class="paso-nota">
+                        Así se verá tu anuncio para quien lo encuentre.
+                    </p>
+
+
+                    <div class="resumen-campos">
+
+                        <p>
+                            <strong>Título:</strong>
+                            {{ formulario.value.titulo || 'Sin título' }}
+                        </p>
+
+                        <p>
+                            <strong>Tipo:</strong>
+                            {{ formulario.value.tipo || 'Sin definir' }}
+                        </p>
+
+                        <p>
+                            <strong>Precio:</strong>
+                            S/ {{ formulario.value.precio || '—' }}
+                        </p>
+
+                        <p>
+                            <strong>Ubicación:</strong>
+                            {{ obtenerUbicacionCompleta() || 'Sin definir' }}
+                        </p>
+
+                        <p>
+                            <strong>Referencia:</strong>
+                            {{ formulario.value.referencia || 'Sin referencia' }}
+                        </p>
+
+                    </div>
+
+
+                    <article class="vista-previa">
+
+                        <div class="vista-previa-foto">
+
+                            @if (fotosSeleccionadas.length > 0) {
+                                <span>
+                                    {{ fotosSeleccionadas[0].name }}
+                                </span>
+                            } @else {
+                                <span>
+                                    Sin foto todavía
+                                </span>
+                            }
+
+                        </div>
+
+
+                        <div class="vista-previa-info">
+
+                            <span class="vista-previa-tipo">
+                                <i class="fa-solid fa-house"></i>
+                                {{ formulario.value.tipo || 'Tipo de alojamiento' }}
+                            </span>
+
+
+                            <h3>
+                                {{ formulario.value.titulo || 'Título del alojamiento' }}
+                            </h3>
+
+
+                            <p class="vista-previa-ubicacion">
+
+                                <i class="fa-solid fa-location-dot"></i>
+
+                                {{ obtenerUbicacionCompleta() || 'Ubicación por definir' }}
+
+                            </p>
+
+
+                            <p class="vista-previa-descripcion">
+                                {{ formulario.value.descripcion || 'La descripción aparecerá aquí.' }}
+                            </p>
+
+
+                            <ul class="vista-previa-tags">
+
+                                @for (
+                                    caracteristica of caracteristicasSeleccionadas;
+                                    track caracteristica
+                                ) {
+
+                                    <li>
+                                        {{ caracteristica }}
+                                    </li>
+
+                                }
+
+                            </ul>
+
+
+                            <div class="vista-previa-footer">
+
+                                <span class="vista-previa-precio">
+
+                                    S/ {{ formulario.value.precio || '—' }}
+
+                                    <small>/ mes</small>
+
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                </div>
+            }
+
+
+            <!-- ACCIONES -->
+
+            <div class="acciones-formulario">
+
+                @if (pasoActual > 1) {
+
+                    <button
+                        type="button"
+                        class="btn btn-secundario"
+                        (click)="pasoAnterior()">
+
+                        Atrás
+
+                    </button>
+
+                }
+
+
+                @if (pasoActual < totalPasos) {
+
+                    <button
+                        type="button"
+                        class="btn btn-principal"
+                        (click)="siguientePaso()">
+
+                        Siguiente
+
+                    </button>
+
+                }
+
+
+                @if (pasoActual === totalPasos) {
+
+                    <button
+                        type="submit"
+                        class="btn btn-principal">
+
+                        <i class="fa-solid fa-check"></i>
+                        Guardar y publicar
+
+                    </button>
+
+                }
+
+            </div>
+
+        </form>
+
+    </section>
+
+</main>
+
+
+<footer class="footer">
+    <div class="footer-container container">
+        <div class="footer-box">
+            <div class="footer-logo"><img src="/Imagenes/logo cuarto.png" alt="Logo SpaceGo"></div>
+            <p> Una plataforma pensada para ayudarte a encontrar el espacio que necesitas.</p>
+        </div>
+        <div class="footer-box">
+            <h3>Información</h3>
+            <p> SpaceGo es una plataforma creada para facilitar la búsqueda de espacios de alojamiento de manera
+                sencilla, clara y práctica. </p>
+            <p> Conectamos a personas que buscan un lugar donde vivir con propietarios que desean publicar sus
+                espacios. </p>
+        </div>
+        <div class="footer-box">
+            <h3>Contacto</h3>
+            <p><i class="fa-solid fa-phone"></i>+51 987 654 321 </p>
+            <p><i class="fa-solid fa-envelope"></i>contacto@spacego.pe</p>
+            <p><i class="fa-solid fa-location-dot"></i>Perú</p>
+            <div class="redes">
+                <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p> © 2026 SpaceGo - Todos los derechos reservados </p>
+    </div>
+</footer>

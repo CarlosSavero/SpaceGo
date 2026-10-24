@@ -1,0 +1,346 @@
+<header class="header">
+    <div class="navbar container">
+        <div class="logo">
+            <a routerLink="/">
+                <img src="/Imagenes/logo cuarto.png" alt="Logo SpaceGo">
+            </a>
+        </div>
+
+        <button type="button" class="menu-icon" (click)="menuAbierto = !menuAbierto" [attr.aria-expanded]="menuAbierto" aria-label="Abrir o cerrar menú">&#9776;</button>
+
+        <nav class="menu" [class.activo]="menuAbierto">
+            <ul>
+                <li><a routerLink="/">Inicio</a></li>
+                <li>
+                    <a routerLink="/buscar" class="activo">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        Buscar alojamiento
+                    </a>
+                </li>
+
+                <li>
+                    <a routerLink="/publicar">
+                        <i class="fa-solid fa-plus"></i>
+                        Publicar alojamiento
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="/favoritos">
+                        <i class="fa-regular fa-heart"></i>
+                        Favoritos
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<section class="buscar-hero">
+    <div class="container">
+        <span class="hero-etiqueta">ENCUENTRA TU ESPACIO</span>
+
+        <h1>Buscar alojamiento</h1>
+
+        <p>
+            Filtra por ubicación, tipo de espacio y presupuesto
+            para encontrar la opción ideal.
+        </p>
+    </div>
+</section>
+
+<main class="contenedor-principal container">
+
+    <!-- FILTROS -->
+    <section class="filtros-section">
+
+        <form [formGroup]="formularioBusqueda" (ngSubmit)="aplicarFiltros()">
+
+            <div class="filtros-buscador">
+
+                <i class="fa-solid fa-magnifying-glass"></i>
+
+                <input type="text" id="input-busqueda" formControlName="busqueda"
+                    placeholder="Buscar por nombre o ubicación...">
+
+            </div>
+
+            <div class="filtros-grid">
+
+                <div class="filtro-campo">
+                    <label for="select-departamento">
+                        Departamento
+                    </label>
+
+                    <select id="select-departamento" formControlName="departamento">
+                        <option value="">Todos</option>
+                        @for (departamento of departamentosDisponibles; track departamento) {
+                            <option [value]="departamento">{{ departamento }}</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="filtro-campo">
+                    <label for="select-provincia">
+                        Provincia
+                    </label>
+
+                    <select id="select-provincia" formControlName="provincia">
+                        <option value="">Todas</option>
+                        @for (provincia of provinciasDisponibles; track provincia) {
+                            <option [value]="provincia">{{ provincia }}</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="filtro-campo">
+                    <label for="select-distrito">
+                        Distrito
+                    </label>
+
+                    <select id="select-distrito" formControlName="distrito">
+                        <option value="">Todos</option>
+                        @for (distrito of distritosDisponibles; track distrito) {
+                            <option [value]="distrito">{{ distrito }}</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="filtro-campo">
+                    <label for="select-tipo">
+                        Tipo
+                    </label>
+
+                    <select id="select-tipo" formControlName="tipo">
+                        <option value="">Todos</option>
+                        <option value="individual">
+                            Habitación individual
+                        </option>
+                        <option value="pareja">
+                            Espacio para pareja
+                        </option>
+                        <option value="minidepa">
+                            Minidepartamento
+                        </option>
+                        <option value="departamento">
+                            Departamento
+                        </option>
+                    </select>
+                </div>
+
+                <div class="filtro-campo">
+                    <label for="input-precio">
+                        Precio máximo (S/)
+                    </label>
+
+                    <input type="number" id="input-precio" formControlName="precioMaximo" min="0" step="50"
+                        placeholder="Ej. 1000">
+                </div>
+
+            </div>
+
+            <div class="filtros-acciones">
+
+                <button type="submit" class="btn btn-principal">
+                    <i class="fa-solid fa-filter"></i>
+                    Aplicar filtros
+                </button>
+
+                <button type="button" class="btn btn-secundario" (click)="limpiarFiltros()">
+                    <i class="fa-solid fa-arrow-rotate-left"></i>
+                    Limpiar
+                </button>
+
+            </div>
+
+        </form>
+
+    </section>
+
+    <!-- RESULTADOS -->
+    <section class="resultados-section">
+
+        <div class="resultados-encabezado">
+
+            <p id="contador-resultados">
+                {{ resultados.length }}
+                {{ resultados.length === 1 ? 'alojamiento encontrado' : 'alojamientos encontrados' }}
+            </p>
+
+            <div class="filtro-campo filtro-orden">
+
+                <label for="select-orden">
+                    Ordenar por
+                </label>
+
+                <select id="select-orden" [formControl]="formularioBusqueda.controls.ordenar"
+                    (change)="ordenarResultados()">
+                    <option value="recientes">
+                        Más recientes
+                    </option>
+
+                    <option value="precio-asc">
+                        Precio: menor a mayor
+                    </option>
+
+                    <option value="precio-desc">
+                        Precio: mayor a menor
+                    </option>
+                </select>
+
+            </div>
+
+        </div>
+
+        <!-- CARDS DINÁMICAS -->
+        <div class="row g-4" id="contenedor-resultados">
+
+            @for (alojamiento of resultados; track alojamiento.id) {
+
+            <div class="col-12 col-md-6 col-lg-4">
+
+                <article class="card h-100">
+
+                    <img [src]="alojamiento.imagen" [alt]="alojamiento.titulo" class="card-img-top">
+
+                    <div class="card-body">
+
+                        <span class="badge bg-primary">
+                            {{ obtenerNombreTipo(alojamiento.tipo) }}
+                        </span>
+
+                        <h3 class="card-title">
+                            {{ alojamiento.titulo }}
+                        </h3>
+
+                        <p>
+                            <i class="fa-solid fa-location-dot"></i>
+                            {{ alojamiento.distrito }},
+                            {{ alojamiento.provincia }}
+                        </p>
+
+                        <p class="card-text">
+                            {{ alojamiento.descripcion }}
+                        </p>
+
+                        <div class="precio">
+                            S/ {{ alojamiento.precio }}
+                            <span>/mes</span>
+                        </div>
+
+                        <a [routerLink]="['/alojamiento', alojamiento.id]" [queryParams]="{volver: urlBusqueda}" [state]="{spacegoOrigen: urlBusqueda}" class="btn btn-principal">
+                            Ver alojamiento
+                        </a>
+
+                    </div>
+
+                </article>
+
+            </div>
+
+            }
+
+        </div>
+
+        <!-- SIN RESULTADOS -->
+        @if (resultados.length === 0) {
+
+        <div class="mensaje-vacio">
+
+            <i class="fa-solid fa-magnifying-glass-minus"></i>
+
+            <h3>No encontramos alojamientos</h3>
+
+            <p>
+                Intenta ajustar los filtros o amplía tu presupuesto.
+            </p>
+
+        </div>
+
+        }
+
+    </section>
+
+</main>
+
+<footer class="footer">
+
+    <div class="footer-container container">
+
+        <div class="footer-box">
+
+            <div class="footer-logo">
+                <img src="/Imagenes/logo cuarto.png" alt="Logo SpaceGo">
+            </div>
+
+            <p>
+                Una plataforma pensada para ayudarte
+                a encontrar el espacio que necesitas.
+            </p>
+
+        </div>
+
+        <div class="footer-box">
+
+            <h3>Información</h3>
+
+            <p>
+                SpaceGo es una plataforma creada para facilitar
+                la búsqueda de espacios de alojamiento de manera
+                sencilla, clara y práctica.
+            </p>
+
+            <p>
+                Conectamos a personas que buscan un lugar donde
+                vivir con propietarios que desean publicar sus espacios.
+            </p>
+
+        </div>
+
+        <div class="footer-box">
+
+            <h3>Contacto</h3>
+
+            <p>
+                <i class="fa-solid fa-phone"></i>
+                +51 987 654 321
+            </p>
+
+            <p>
+                <i class="fa-solid fa-envelope"></i>
+                contacto@spacego.pe
+            </p>
+
+            <p>
+                <i class="fa-solid fa-location-dot"></i>
+                Perú
+            </p>
+
+            <div class="redes">
+
+                <a href="#" aria-label="Facebook">
+                    <i class="fa-brands fa-facebook"></i>
+                </a>
+
+                <a href="#" aria-label="Instagram">
+                    <i class="fa-brands fa-instagram"></i>
+                </a>
+
+                <a href="#" aria-label="TikTok">
+                    <i class="fa-brands fa-tiktok"></i>
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="footer-bottom">
+
+        <p>
+            © 2026 SpaceGo - Todos los derechos reservados
+        </p>
+
+    </div>
+
+</footer>

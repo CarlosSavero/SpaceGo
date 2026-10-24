@@ -1,0 +1,241 @@
+
+<div class="favoritos-page">
+  <header class="header">
+    <div class="navbar container">
+      <div class="logo">
+        <a routerLink="/" (click)="cerrarMenu()" aria-label="Ir al inicio de SpaceGo">
+          <img src="/Imagenes/logo cuarto.png" alt="SpaceGo" />
+        </a>
+      </div>
+
+      <button type="button" class="menu-icon" (click)="cambiarMenu()"
+              [attr.aria-expanded]="menuAbierto()" aria-controls="menu-favoritos"
+              [attr.aria-label]="menuAbierto() ? 'Cerrar menú' : 'Abrir menú'">
+        <i class="fa-solid" [class.fa-bars]="!menuAbierto()" [class.fa-xmark]="menuAbierto()" aria-hidden="true"></i>
+      </button>
+
+      <nav id="menu-favoritos" class="menu" [class.activo]="menuAbierto()" aria-label="Navegación principal">
+        <ul>
+          <li><a routerLink="/" (click)="cerrarMenu()">Inicio</a></li>
+          <li><a routerLink="/buscar" (click)="cerrarMenu()"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>Buscar alojamiento</a></li>
+
+          <li><a routerLink="/publicar" (click)="cerrarMenu()"><i class="fa-solid fa-plus" aria-hidden="true"></i>Publicar alojamiento</a></li>
+          <li><a routerLink="/favoritos" class="activo" aria-current="page" (click)="cerrarMenu()"><i class="fa-solid fa-heart" aria-hidden="true"></i>Favoritos</a></li>
+          <li><a routerLink="/login" class="btn-login-nav" (click)="cerrarMenu()"><i class="fa-solid fa-user" aria-hidden="true"></i>Iniciar sesión</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="favoritos-hero" aria-labelledby="titulo-favoritos">
+    <div class="container favoritos-hero-contenido">
+      <div class="favoritos-hero-texto">
+        <span class="hero-etiqueta"><i class="fa-solid fa-heart" aria-hidden="true"></i> TU SELECCIÓN PERSONAL</span>
+        <h1 id="titulo-favoritos">Tus alojamientos <em>favoritos</em></h1>
+        <p>Todos los espacios que te gustaron, reunidos en un solo lugar para que encuentres el indicado para ti.</p>
+      </div>
+      <div class="favoritos-hero-decoracion" aria-hidden="true"><i class="fa-regular fa-heart"></i></div>
+    </div>
+  </section>
+
+  <main class="contenedor-principal container">
+    <section class="filtros-section" aria-labelledby="titulo-filtros">
+      <div class="filtros-encabezado">
+        <div class="filtros-identidad">
+          <span class="filtros-icono" aria-hidden="true"><i class="fa-solid fa-sliders"></i></span>
+          <div>
+            <h2 id="titulo-filtros">Organiza tus favoritos</h2>
+            <p>Encuentra más rápido el alojamiento que guardaste.</p>
+          </div>
+        </div>
+        <span class="filtros-ayuda"><i class="fa-solid fa-circle-check" aria-hidden="true"></i> Tu lista, a tu manera</span>
+      </div>
+
+      <form [formGroup]="formulario" (ngSubmit)="aplicarFiltros()">
+        <div class="filtros-grid">
+          <div class="filtro-campo">
+            <label for="select-orden-fav">Ordenar por</label>
+            <div class="campo-control">
+              <i class="fa-regular fa-calendar" aria-hidden="true"></i>
+              <select id="select-orden-fav" formControlName="ordenar">
+                <option value="recientes">Más recientes</option>
+                <option value="precio-asc">Precio: menor a mayor</option>
+                <option value="precio-desc">Precio: mayor a menor</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="filtro-campo">
+            <label for="select-tipo-fav">Tipo de alojamiento</label>
+            <div class="campo-control">
+              <i class="fa-solid fa-house" aria-hidden="true"></i>
+              <select id="select-tipo-fav" formControlName="tipo">
+                <option value="todos">Todos los tipos</option>
+                <option value="individual">Habitación individual</option>
+                <option value="pareja">Espacio para pareja</option>
+                <option value="minidepa">Minidepartamento</option>
+                <option value="departamento">Departamento</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="filtro-campo">
+            <label for="input-precio-fav">Precio máximo (S/)</label>
+            <div class="campo-control">
+              <i class="fa-solid fa-tag" aria-hidden="true"></i>
+              <input id="input-precio-fav" type="number" min="0" step="50"
+                     inputmode="numeric" formControlName="precioMaximo" placeholder="Ej. 1000" />
+            </div>
+          </div>
+        </div>
+        <div class="filtros-acciones">
+          <button type="submit" class="btn btn-principal"><i class="fa-solid fa-filter" aria-hidden="true"></i> Aplicar filtros</button>
+          <button type="button" class="btn btn-secundario" (click)="limpiarFiltros()"><i class="fa-solid fa-arrow-rotate-left" aria-hidden="true"></i> Limpiar filtros</button>
+        </div>
+      </form>
+    </section>
+
+    <section class="resultados-section" aria-labelledby="titulo-resultados">
+      <div class="resultados-encabezado">
+        <div>
+          <span class="titulo-etiqueta">MI COLECCIÓN</span>
+          <h2 id="titulo-resultados">Espacios que te encantan</h2>
+          <p class="contador-favoritos" aria-live="polite">
+            {{ resultados().length }} alojamiento{{ resultados().length === 1 ? '' : 's' }} guardado{{ resultados().length === 1 ? '' : 's' }}
+          </p>
+        </div>
+        <a class="enlace-explorar" routerLink="/buscar">Seguir explorando <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+      </div>
+
+      @if (errorAccion()) {
+        <div class="mensaje-alerta" role="alert">{{ errorAccion() }}</div>
+      }
+
+      @if (cargando()) {
+        <div class="mensaje-estado" role="status"><i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i> Cargando tus alojamientos favoritos…</div>
+      } @else if (errorCarga()) {
+        <div class="mensaje-estado mensaje-error" role="alert">
+          <i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i>
+          <p>{{ errorCarga() }}</p>
+          <button type="button" class="btn btn-principal" (click)="cargarFavoritos()">Reintentar</button>
+        </div>
+      } @else {
+        <div class="favoritos-grid">
+          @for (alojamiento of resultados(); track alojamiento.id) {
+            <article class="resultado-card">
+              <div class="resultado-imagen">
+                <img [src]="alojamiento.imagen" [alt]="alojamiento.titulo" loading="lazy" />
+                <span class="badge-tipo"><i class="fa-solid" [class]="'fa-solid ' + iconoTipo(alojamiento.tipo)" aria-hidden="true"></i> {{ etiquetaTipo(alojamiento.tipo) }}</span>
+                <span class="badge-favorito"><i class="fa-solid fa-heart" aria-hidden="true"></i> Guardado</span>
+              </div>
+
+              <div class="resultado-contenido">
+                <h3>{{ alojamiento.titulo }}</h3>
+                <p class="resultado-ubicacion"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> {{ alojamiento.ubicacion }}</p>
+                <p class="resultado-descripcion">{{ alojamiento.descripcion }}</p>
+
+                <div class="clima-alojamiento" aria-label="Clima de la zona del alojamiento">
+                  <div class="clima-cabecera">
+                    <span class="clima-etiqueta">CLIMA DE LA ZONA</span>
+                    <span class="clima-proveedor">Open-Meteo</span>
+                  </div>
+                  @if (climaPara(alojamiento); as clima) {
+                    @if (clima.estado === 'listo') {
+                      <div class="clima-contenido">
+                        <div class="clima-icono"><i [class]="'fa-solid ' + clima.icono" aria-hidden="true"></i></div>
+                        <div class="clima-datos">
+                          <span class="clima-temperatura">{{ clima.temperatura }} °C</span>
+                          <span class="clima-condicion">{{ clima.descripcion }}</span>
+                        </div>
+                        <div class="clima-humedad"><strong><i class="fa-solid fa-droplet" aria-hidden="true"></i> {{ clima.humedad }}%</strong><span>Humedad</span></div>
+                      </div>
+                    } @else if (clima.estado === 'cargando') {
+                      <div class="clima-cargando" role="status"><i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i> Consultando el clima…</div>
+                    } @else if (clima.estado === 'sin-ubicacion') {
+                      <div class="clima-sin-datos"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> No hay coordenadas para consultar esta zona.</div>
+                    } @else {
+                      <div class="clima-sin-datos"><i class="fa-solid fa-cloud" aria-hidden="true"></i> Clima no disponible por ahora.</div>
+                    }
+                  }
+                </div>
+
+                <div class="resultado-footer">
+                  <div class="precio-contenedor">
+                    <span class="precio-etiqueta">PRECIO MENSUAL</span>
+                    <span class="resultado-precio">S/ {{ alojamiento.precio | number:'1.0-0' }}<small>/mes</small></span>
+                  </div>
+                  <div class="resultado-acciones">
+                    <a class="btn-ver" [routerLink]="['/alojamiento']" [queryParams]="{ id: alojamiento.id, volver: '/favoritos' }" [state]="{spacegoOrigen: '/favoritos'}">
+                      Ver detalles <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+                    </a>
+                    <button type="button" class="btn-quitar-favorito"
+                            [disabled]="eliminandoIds().has(alojamiento.id)"
+                            [attr.aria-label]="'Quitar ' + alojamiento.titulo + ' de favoritos'"
+                            title="Quitar de favoritos" (click)="quitarDeFavoritos(alojamiento.id)">
+                      <i [class]="eliminandoIds().has(alojamiento.id) ? 'fa-solid fa-spinner fa-spin' : 'fa-solid fa-xmark'" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </article>
+          }
+        </div>
+
+        @if (resultados().length > 0) {
+          <p class="favoritos-clima-nota"><i class="fa-solid fa-circle-info" aria-hidden="true"></i>
+            El clima corresponde a la zona y no al interior del alojamiento. Datos de
+            <a href="https://open-meteo.com/" target="_blank" rel="noopener noreferrer">Open-Meteo</a>.
+          </p>
+        } @else {
+          <div class="mensaje-vacio">
+            <div class="vacio-icono" aria-hidden="true"><i class="fa-regular fa-heart"></i></div>
+            <span class="vacio-etiqueta">TU LISTA DE FAVORITOS</span>
+            @if (cantidadFavoritos() === 0) {
+              <h3>No tienes favoritos guardados</h3>
+              <p>Explora los alojamientos y guarda los que más te gusten.</p>
+            } @else {
+              <h3>No hay coincidencias con tus filtros</h3>
+              <p>Prueba con otro tipo de alojamiento o amplía el precio máximo.</p>
+            }
+            <a routerLink="/buscar" class="btn btn-principal"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i> Buscar alojamientos</a>
+          </div>
+        }
+      }
+    </section>
+
+    <section class="favoritos-cta" aria-label="Descubrir alojamientos">
+      <div class="favoritos-cta-texto">
+        <span class="cta-etiqueta">TU PRÓXIMO ESPACIO TE ESPERA</span>
+        <h2>¿Aún buscas el lugar ideal?</h2>
+        <p>Explora más alternativas y sigue guardando las que más te gusten.</p>
+      </div>
+      <a routerLink="/buscar" class="btn-blanco-fav">Explorar alojamientos <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container container">
+      <div class="footer-box">
+        <div class="footer-logo"><img src="/Imagenes/logo cuarto.png" alt="Logo SpaceGo" /></div>
+        <p>Una plataforma pensada para ayudarte a encontrar el espacio que necesitas.</p>
+      </div>
+      <div class="footer-box">
+        <h3>Información</h3>
+        <p>SpaceGo facilita la búsqueda de habitaciones y departamentos de manera sencilla, clara y práctica.</p>
+        <p>Conectamos a personas que buscan un lugar donde vivir con propietarios que publican sus espacios.</p>
+      </div>
+      <div class="footer-box">
+        <h3>Contacto</h3>
+        <p><i class="fa-solid fa-phone" aria-hidden="true"></i>+51 987 654 321</p>
+        <p><i class="fa-solid fa-envelope" aria-hidden="true"></i>contacto@spacego.pe</p>
+        <p><i class="fa-solid fa-location-dot" aria-hidden="true"></i>Perú</p>
+        <div class="redes">
+          <a href="https://www.facebook.com/" aria-label="Facebook" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook"></i></a>
+          <a href="https://www.instagram.com/" aria-label="Instagram" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i></a>
+          <a href="https://www.tiktok.com/" aria-label="TikTok" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-tiktok"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom"><p>© 2026 SpaceGo - Todos los derechos reservados</p></div>
+  </footer>
+</div>

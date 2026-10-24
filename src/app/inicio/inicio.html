@@ -1,0 +1,574 @@
+<header class="header">
+    <div class="navbar container">
+
+        <div class="logo">
+            <a routerLink="/">
+                <img src="/Imagenes/logo cuarto.png" alt="Logo SpaceGo">
+            </a>
+        </div>
+
+        <button type="button" class="menu-icon" id="boton-menu">
+            &#9776;
+        </button>
+
+        <nav class="menu" id="menu-principal">
+            <ul>
+
+                <li>
+                    <a routerLink="/" class="activo">
+                        Inicio
+                    </a>
+                </li>
+
+                <li>
+                    <a routerLink="/buscar">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        Buscar alojamiento
+                    </a>
+                </li>
+
+
+
+                <li>
+                    <a routerLink="/publicar">
+                        <i class="fa-solid fa-plus"></i>
+                        Publicar alojamiento
+                    </a>
+                </li>
+
+                <li>
+                    <a routerLink="/favoritos">
+                        <i class="fa-regular fa-heart"></i>
+                        Favoritos
+                    </a>
+                </li>
+
+                <li>
+                    <a routerLink="/login" class="btn-login-nav">
+                        <i class="fa-solid fa-user"></i>
+                        Iniciar Sesión
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+
+    </div>
+</header>
+
+<section class="hero">
+    <div class="overlay"></div>
+    <div class="hero-contenido container">
+        <span class="hero-etiqueta">ENCUENTRA TU ESPACIO</span>
+        <h1>El espacio que buscas,
+            <em>más cerca de ti</em>
+        </h1>
+        <p>Encuentra habitaciones, espacios para parejas,
+            minidepartamentos y departamentos según tus necesidades.</p>
+        <a routerLink="/buscar" class="btn btn-principal">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            Buscar alojamiento</a>
+    </div>
+</section>
+
+<main class="contenedor-principal container">
+
+    <!-- ALOJAMIENTOS DESTACADOS -->
+    <section class="destacados-section">
+        <div class="container">
+
+            <div class="titulo-seccion">
+                <span>ALOJAMIENTOS DESTACADOS</span>
+                <h2>Encuentra un lugar para ti</h2>
+                <p>Conoce algunas de las opciones disponibles en SpaceGo.</p>
+            </div>
+
+            <div class="row g-4">
+
+                <!-- ALOJAMIENTO 1 -->
+                <div class="col-lg-4 col-md-6">
+                    <article class="alojamiento-card">
+
+                        <div class="alojamiento-imagen">
+                            <img src="/Imagenes/cuarto pareja.jpg" alt="Cuarto para parejas">
+
+                            <span class="alojamiento-etiqueta">
+                                Destacado
+                            </span>
+                        </div>
+
+                        <div class="alojamiento-contenido">
+
+                            <span class="alojamiento-tipo">
+                                Cuarto para parejas
+                            </span>
+
+                            <h3>Habitación cómoda en Lima</h3>
+
+                            <p class="alojamiento-ubicacion">
+                                <i class="fa-solid fa-location-dot"></i>
+                                Lima
+                            </p>
+
+                            <p class="alojamiento-descripcion">
+                                Espacio cómodo y acogedor, ideal para
+                                quienes buscan una buena ubicación.
+                            </p>
+
+                            <div class="alojamiento-pie">
+                                <strong>
+                                    S/ 650
+                                    <small>/ mes</small>
+                                </strong>
+
+                                <a routerLink="/alojamiento/1" [queryParams]="{volver: '/'}" [state]="{spacegoOrigen: '/'}" class="btn-ver-alojamiento">
+                                    Ver alojamiento
+                                </a>
+                            </div>
+
+                        </div>
+                    </article>
+                </div>
+
+
+                <!-- ALOJAMIENTO 2 -->
+                <div class="col-lg-4 col-md-6">
+                    <article class="alojamiento-card">
+
+                        <div class="alojamiento-imagen">
+                            <img src="/Imagenes/minidepa.jpg" alt="Mini departamento">
+
+                            <span class="alojamiento-etiqueta">
+                                Destacado
+                            </span>
+                        </div>
+
+                        <div class="alojamiento-contenido">
+
+                            <span class="alojamiento-tipo">
+                                Mini departamento
+                            </span>
+
+                            <h3>Mini departamento en Arequipa</h3>
+
+                            <p class="alojamiento-ubicacion">
+                                <i class="fa-solid fa-location-dot"></i>
+                                Arequipa
+                            </p>
+
+                            <p class="alojamiento-descripcion">
+                                Un espacio privado y funcional para
+                                disfrutar de mayor comodidad.
+                            </p>
+
+                            <div class="alojamiento-pie">
+                                <strong>
+                                    S/ 950
+                                    <small>/ mes</small>
+                                </strong>
+
+                                <a routerLink="/alojamiento/2" [queryParams]="{volver: '/'}" [state]="{spacegoOrigen: '/'}" class="btn-ver-alojamiento">
+                                    Ver alojamiento
+                                </a>
+                            </div>
+
+                        </div>
+                    </article>
+                </div>
+
+
+                <!-- ALOJAMIENTO 3 -->
+                <div class="col-lg-4 col-md-6">
+                    <article class="alojamiento-card">
+
+                        <div class="alojamiento-imagen">
+                            <img src="/Imagenes/departamento.jpg" alt="Departamento">
+
+                            <span class="alojamiento-etiqueta">
+                                Destacado
+                            </span>
+                        </div>
+
+                        <div class="alojamiento-contenido">
+
+                            <span class="alojamiento-tipo">
+                                Departamento
+                            </span>
+
+                            <h3>Departamento en Cusco</h3>
+
+                            <p class="alojamiento-ubicacion">
+                                <i class="fa-solid fa-location-dot"></i>
+                                Cusco
+                            </p>
+
+                            <p class="alojamiento-descripcion">
+                                Departamento amplio con espacios
+                                pensados para una estadía cómoda.
+                            </p>
+
+                            <div class="alojamiento-pie">
+                                <strong>
+                                    S/ 1,400
+                                    <small>/ mes</small>
+                                </strong>
+
+                                <a routerLink="/alojamiento/3" [queryParams]="{volver: '/'}" [state]="{spacegoOrigen: '/'}" class="btn-ver-alojamiento">
+                                    Ver alojamiento
+                                </a>
+                            </div>
+
+                        </div>
+                    </article>
+                </div>
+
+            </div>
+
+            <!-- VER TODOS -->
+            <div class="text-center mt-5">
+                <a routerLink="/buscar" class="btn-principal">
+                    Ver todos los alojamientos
+                </a>
+            </div>
+
+        </div>
+    </section>
+    <section class="confianza-section">
+        <div class="row align-items-center g-5">
+            <div class="col-12 col-lg-5">
+                <span class="titulo-etiqueta"> CONOCE SPACEGO </span>
+                <h2>
+                    ¿Por qué elegir
+                    <em>SpaceGo?</em>
+                </h2>
+                <p> Buscamos que encontrar un espacio sea
+                    sencillo, claro y práctico. </p>
+                <a href="#sobre-nosotros" class="btn btn-secundario"> Conoce más </a>
+            </div>
+            <div class="col-12 col-lg-7">
+                <div class="beneficios-grid">
+                    <article class="beneficio">
+                        <i class="fa-solid fa-circle-info"></i>
+                        <div>
+                            <h3>Información clara</h3>
+                            <p> Consulta precio, ubicación y características. </p>
+                        </div>
+                    </article>
+                    <article class="beneficio">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <div>
+                            <h3>Ubicaciones</h3>
+                            <p> Busca por departamento, provincia y distrito. </p>
+                        </div>
+                    </article>
+                    <article class="beneficio">
+                        <i class="fa-solid fa-tags"></i>
+                        <div>
+                            <h3>Precios visibles</h3>
+                            <p> Conoce el precio antes de contactar. </p>
+                        </div>
+                    </article>
+                    <article class="beneficio">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <div>
+                            <h3>Mayor confianza</h3>
+                            <p> Revisa la información antes de elegir. </p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="funciona-section">
+        <div class="titulo-seccion">
+            <span>ES MUY SENCILLO</span>
+            <h2> ¿Cómo funciona SpaceGo? </h2>
+            <p> Encontrar un espacio puede ser más fácil de lo que imaginas. </p>
+        </div>
+        <div class="row g-4">
+            <div class="col-12 col-md-6 col-lg-3">
+                <article class="paso-card">
+                    <div class="paso-numero">01</div>
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <h3>Busca</h3>
+                    <p> Indica la zona donde necesitas encontrar un espacio.</p>
+                </article>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+                <article class="paso-card">
+                    <div class="paso-numero">02</div>
+                    <i class="fa-solid fa-sliders"></i>
+                    <h3>Filtra</h3>
+                    <p> Selecciona ubicación y tipo de alojamiento. </p>
+                </article>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+                <article class="paso-card">
+                    <div class="paso-numero">03</div>
+                    <i class="fa-solid fa-house"></i>
+                    <h3>Compara</h3>
+                    <p> Revisa imágenes, características y precios. </p>
+                </article>
+            </div>
+            <div class="col-12 col-md-6 col-lg-3">
+                <article class="paso-card">
+                    <div class="paso-numero">04</div>
+                    <i class="fa-solid fa-phone"></i>
+                    <h3>Contacta</h3>
+                    <p> Comunícate con el propietario del espacio. </p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="publicar-section">
+        <div class="row align-items-center g-4">
+            <div class="col-12 col-lg-6">
+                <div class="publicar-imagen">
+                    <img src="/Imagenes/alojamiento.jpg" alt="Publicar alojamiento">
+                </div>
+            </div>
+            <div class="col-12 col-lg-6">
+                <span class="titulo-etiqueta">¿TIENES UN ESPACIO?</span>
+                <h2>Publica tu alojamiento</h2>
+                <p>Comparte tu habitación, minidepartamento o departamento con personas que buscan un nuevo espacio.
+                </p>
+                <ul class="lista-publicar">
+                    <li><i class="fa-solid fa-check"></i>Agrega fotografías.</li>
+                    <li><i class="fa-solid fa-check"></i>Indica precio y ubicación.</li>
+                    <li><i class="fa-solid fa-check"></i>Describe los servicios incluidos.</li>
+                </ul>
+                <a routerLink="/publicar" class="btn btn-principal">
+                    <i class="fa-solid fa-plus"></i>
+                    Publicar alojamiento
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="confianza-section">
+
+        <div class="confianza-header">
+            <span class="seccion-etiqueta">SOBRE NOSOTROS</span>
+
+            <h2>
+                Un espacio pensado <em>para ti</em>
+            </h2>
+
+            <p>
+                SpaceGo reúne la información que necesitas para encontrar
+                un alojamiento de manera sencilla, clara y segura.
+            </p>
+        </div>
+
+        <div class="beneficios-grid">
+
+            <article class="beneficio">
+                <i class="fa-solid fa-location-dot"></i>
+
+                <div>
+                    <h3>Encuentra una buena ubicación</h3>
+                    <p>
+                        Explora alojamientos según la zona que necesitas.
+                    </p>
+                </div>
+            </article>
+
+            <article class="beneficio">
+                <i class="fa-solid fa-tag"></i>
+
+                <div>
+                    <h3>Precios claros</h3>
+                    <p>
+                        Consulta los precios de cada alojamiento antes de contactar.
+                    </p>
+                </div>
+            </article>
+
+            <article class="beneficio">
+                <i class="fa-solid fa-house"></i>
+
+                <div>
+                    <h3>Conoce cada espacio</h3>
+                    <p>
+                        Revisa imágenes, características, servicios y detalles.
+                    </p>
+                </div>
+            </article>
+
+            <article class="beneficio">
+                <i class="fa-solid fa-heart"></i>
+
+                <div>
+                    <h3>Guarda tus favoritos</h3>
+                    <p>
+                        Conserva los alojamientos que más te interesen para revisarlos después.
+                    </p>
+                </div>
+            </article>
+
+        </div>
+
+    </section>
+
+    <section class="faq-section">
+        <div class="titulo-seccion">
+            <span>AYUDA</span>
+            <h2>Preguntas frecuentes</h2>
+        </div>
+
+        <div class="faq-container">
+
+            <article class="faq-item" [class.activo]="faqAbierta === 0">
+
+                <button class="faq-pregunta" type="button" (click)="alternarFaq(0)">
+
+                    ¿Qué tipos de espacios puedo encontrar?
+
+                    <i class="fa-solid" [class.fa-plus]="faqAbierta !== 0" [class.fa-minus]="faqAbierta === 0">
+                    </i>
+                </button>
+
+                @if (faqAbierta === 0) {
+                <div class="faq-respuesta">
+                    <p>
+                        Habitaciones individuales, espacios para parejas,
+                        minidepartamentos y departamentos.
+                    </p>
+                </div>
+                }
+
+            </article>
+
+
+            <article class="faq-item" [class.activo]="faqAbierta === 1">
+
+                <button class="faq-pregunta" type="button" (click)="alternarFaq(1)">
+
+                    ¿Puedo buscar por distrito?
+
+                    <i class="fa-solid" [class.fa-plus]="faqAbierta !== 1" [class.fa-minus]="faqAbierta === 1">
+                    </i>
+                </button>
+
+                @if (faqAbierta === 1) {
+                <div class="faq-respuesta">
+                    <p>
+                        Sí. Puedes buscar por departamento,
+                        provincia y distrito.
+                    </p>
+                </div>
+                }
+
+            </article>
+
+
+            <article class="faq-item" [class.activo]="faqAbierta === 2">
+
+                <button class="faq-pregunta" type="button" (click)="alternarFaq(2)">
+
+                    ¿Puedo publicar mi propio espacio?
+
+                    <i class="fa-solid" [class.fa-plus]="faqAbierta !== 2" [class.fa-minus]="faqAbierta === 2">
+                    </i>
+                </button>
+
+                @if (faqAbierta === 2) {
+                <div class="faq-respuesta">
+                    <p>
+                        Sí. Puedes agregar fotografías, precio,
+                        ubicación y características.
+                    </p>
+                </div>
+                }
+
+            </article>
+            <!-- PREGUNTA 4 -->
+            <article class="faq-item" [class.activo]="faqAbierta === 3">
+
+                <button class="faq-pregunta" type="button" (click)="alternarFaq(3)">
+
+                    ¿Cómo puedo contactar al propietario de un alojamiento?
+
+                    <i class="fa-solid" [class.fa-plus]="faqAbierta !== 3" [class.fa-minus]="faqAbierta === 3">
+                    </i>
+                </button>
+
+                @if (faqAbierta === 3) {
+                <div class="faq-respuesta">
+                    <p>
+                        Puedes revisar la información del alojamiento y utilizar
+                        los medios de contacto disponibles para comunicarte con
+                        el propietario.
+                    </p>
+                </div>
+                }
+
+            </article>
+
+
+            <!-- PREGUNTA 5 -->
+            <article class="faq-item" [class.activo]="faqAbierta === 4">
+
+                <button class="faq-pregunta" type="button" (click)="alternarFaq(4)">
+
+                    ¿Puedo guardar alojamientos para revisarlos después?
+
+                    <i class="fa-solid" [class.fa-plus]="faqAbierta !== 4" [class.fa-minus]="faqAbierta === 4">
+                    </i>
+                </button>
+
+                @if (faqAbierta === 4) {
+                <div class="faq-respuesta">
+                    <p>
+                        Sí. Puedes guardar tus alojamientos favoritos para
+                        encontrarlos fácilmente y revisarlos cuando quieras.
+                    </p>
+                </div>
+                }
+
+            </article>
+
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="cta-contenido">
+            <h2>Encuentra el espacio que necesitas</h2>
+            <p> Explora diferentes opciones y encuentra una que se adapte a ti. </p>
+            <a routerLink="/buscar" class="btn btn-blanco"> Comenzar búsqueda <i
+                    class="fa-solid fa-arrow-right"></i></a>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="footer-container container">
+        <div class="footer-box">
+            <div class="footer-logo"><img src="/Imagenes/logo cuarto.png" alt="Logo SpaceGo"></div>
+            <p> Una plataforma pensada para ayudarte a encontrar el espacio que necesitas.</p>
+        </div>
+        <div class="footer-box">
+            <h3>Información</h3>
+            <p> SpaceGo es una plataforma creada para facilitar la búsqueda de espacios de alojamiento de manera
+                sencilla, clara y práctica. </p>
+            <p> Conectamos a personas que buscan un lugar donde vivir con propietarios que desean publicar sus
+                espacios. </p>
+        </div>
+        <div class="footer-box">
+            <h3>Contacto</h3>
+            <p><i class="fa-solid fa-phone"></i>+51 987 654 321 </p>
+            <p><i class="fa-solid fa-envelope"></i>contacto@spacego.pe</p>
+            <p><i class="fa-solid fa-location-dot"></i>Perú</p>
+            <div class="redes">
+                <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p> © 2026 SpaceGo - Todos los derechos reservados </p>
+    </div>
+</footer>

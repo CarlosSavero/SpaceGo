@@ -1,0 +1,568 @@
+/* ---------- HERO ---------- */
+
+.hero {
+    min-height: 500px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: url("/Imagenes/baner-cuartos.png") center/cover no-repeat;
+}
+
+.hero .overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.52);
+}
+
+.hero-contenido {
+    position: relative;
+    z-index: 1;
+    padding: 70px 0;
+    color: #ffffff;
+}
+
+.hero-etiqueta {
+    color: #f2cbd2;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.hero h1 {
+    max-width: 700px;
+    margin: 15px 0;
+    font-size: clamp(38px, 5vw, 60px);
+    line-height: 1.05;
+    font-weight: 800;
+}
+
+.hero h1 em {
+    color: #f0c5cd;
+    font-style: normal;
+}
+
+.hero p {
+    max-width: 580px;
+    margin-bottom: 25px;
+    color: #f5f5f5;
+    font-size: 17px;
+    line-height: 1.6;
+}
+
+/* ---------- TÍTULOS ---------- */
+
+.titulo-seccion {
+    margin-bottom: 35px;
+    text-align: center;
+}
+
+.titulo-seccion span,
+.titulo-etiqueta {
+    display: block;
+    margin-bottom: 8px;
+    color: #9d1730;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+}
+
+.titulo-seccion h2 {
+    margin: 0 0 8px;
+    color: #242424;
+    font-size: 31px;
+    font-weight: 800;
+}
+
+.titulo-seccion p {
+    margin: 0;
+    color: #666666;
+    font-size: 14px;
+}
+
+/* ---------- TIPOS DE ALOJAMIENTO ---------- */
+
+.tipos-section {
+    padding: 70px 0;
+}
+
+.tipo-card {
+    height: 100%;
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid #eeeeee;
+    border-radius: 13px;
+    box-shadow: 0 7px 20px rgba(0,0,0,0.06);
+    transition: 0.3s;
+}
+
+.tipo-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.11);
+}
+
+.tipo-imagen {
+    height: 220px;
+    position: relative;
+    overflow: hidden;
+}
+
+.tipo-imagen img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: 0.4s;
+}
+
+.tipo-card:hover .tipo-imagen img {
+    transform: scale(1.05);
+}
+
+.tipo-imagen span {
+    position: absolute;
+    top: 13px;
+    left: 13px;
+    padding: 5px 9px;
+    background: #ffffff;
+    color: #9d1730;
+    border-radius: 5px;
+    font-size: 9px;
+    font-weight: 700;
+}
+
+.tipo-contenido {
+    padding: 18px;
+}
+
+.tipo-icono {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 12px;
+    background: #f8e9ec;
+    color: #9d1730;
+    border-radius: 50%;
+}
+
+.tipo-contenido h3 {
+    margin-bottom: 7px;
+    color: #242424;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.tipo-contenido p {
+    min-height: 45px;
+    margin-bottom: 12px;
+    color: #666666;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.tipo-contenido a {
+    color: #9d1730;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.tipo-contenido a i {
+    margin-left: 4px;
+}
+
+/* ---------- CONFIANZA ---------- */
+
+.confianza-section {
+    margin-bottom: 70px;
+    padding: 50px;
+    background: #ffffff;
+    border-radius: 18px;
+    box-shadow: 0 7px 22px rgba(0,0,0,0.06);
+}
+
+.confianza-section h2 {
+    margin-bottom: 15px;
+    font-size: 32px;
+    font-weight: 800;
+}
+
+.confianza-section h2 em {
+    color: #9d1730;
+    font-style: normal;
+}
+
+.confianza-section p {
+    color: #666666;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.beneficios-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 22px;
+}
+
+.beneficio {
+    display: flex;
+    gap: 12px;
+}
+
+.beneficio > i {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f8e9ec;
+    color: #9d1730;
+    border-radius: 50%;
+}
+
+.beneficio h3 {
+    margin: 0 0 4px;
+    font-size: 15px;
+}
+
+.beneficio p {
+    margin: 0;
+    font-size: 12px;
+}
+
+/* ---------- CÓMO FUNCIONA ---------- */
+
+.funciona-section {
+    padding-bottom: 70px;
+}
+
+.paso-card {
+    height: 100%;
+    position: relative;
+    padding: 28px 20px;
+    text-align: center;
+    background: #ffffff;
+    border: 1px solid #e8e3e1;
+    border-radius: 13px;
+    transition: 0.3s;
+}
+
+.paso-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.07);
+}
+
+.paso-numero {
+    position: absolute;
+    top: 13px;
+    right: 15px;
+    color: #d8d2d0;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.paso-card > i {
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 8px auto 15px;
+    background: #f8e9ec;
+    color: #9d1730;
+    border-radius: 50%;
+}
+
+.paso-card h3 {
+    margin-bottom: 7px;
+    font-size: 17px;
+}
+
+.paso-card p {
+    margin: 0;
+    color: #666666;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+
+/* ---------- PUBLICAR ---------- */
+
+.publicar-section {
+    margin-bottom: 70px;
+    padding: 32px;
+    background: #9d1730;
+    color: #ffffff;
+    border-radius: 18px;
+}
+
+.publicar-imagen {
+    width: 100%;
+    height: 380px;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+.publicar-imagen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.publicar-section .titulo-etiqueta {
+    color: #f2cbd2;
+}
+
+.publicar-section h2 {
+    margin-bottom: 12px;
+    font-size: 32px;
+    font-weight: 800;
+}
+
+.publicar-section p {
+    max-width: 500px;
+    color: #f7e9eb;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.lista-publicar {
+    list-style: none;
+    padding: 0;
+    margin: 18px 0 23px;
+}
+
+.lista-publicar li {
+    margin-bottom: 9px;
+    font-size: 13px;
+}
+
+.lista-publicar i {
+    margin-right: 7px;
+    color: #f0c5cd;
+}
+
+.publicar-section .btn-principal {
+    background: #ffffff !important;
+    color: #9d1730 !important;
+}
+
+/* ---------- SOBRE NOSOTROS ---------- */
+
+.sobre-section {
+    max-width: 850px;
+    margin: 0 auto;
+    padding-bottom: 70px;
+}
+
+.sobre-contenido {
+    padding: 28px 35px;
+    background: #ffffff;
+    border: 1px solid #e8e3e1;
+    border-radius: 14px;
+}
+
+.sobre-contenido p {
+    margin-bottom: 12px;
+    color: #666666;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.sobre-contenido p:last-child {
+    margin-bottom: 0;
+}
+
+/* ---------- FAQ ---------- */
+
+.faq-section {
+    max-width: 900px;
+    margin: 0 auto;
+    padding-bottom: 70px;
+}
+
+.faq-container {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.faq-item {
+    overflow: hidden;
+    background: #ffffff;
+    border: 1px solid #e8e3e1;
+    border-radius: 9px;
+}
+
+.faq-pregunta {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 17px 19px;
+    border: none;
+    background: transparent;
+    color: #242424;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: left;
+    cursor: pointer;
+}
+
+.faq-pregunta i {
+    color: #9d1730;
+    transition: 0.3s;
+}
+
+.faq-respuesta {
+    display: none;
+    padding: 0 19px 17px;
+}
+
+.faq-respuesta p {
+    margin: 0;
+    color: #666666;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.faq-item.activo .faq-respuesta {
+    display: block;
+}
+
+.faq-item.activo .faq-pregunta i {
+    transform: rotate(45deg);
+}
+
+/* ---------- CTA ---------- */
+
+.cta-section {
+    min-height: 280px;
+    margin-bottom: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(
+        90deg,
+        #751126,
+        #9d1730
+    );
+    border-radius: 18px;
+}
+
+.cta-contenido {
+    max-width: 650px;
+    padding: 40px 20px;
+    color: #ffffff;
+}
+
+.cta-contenido h2 {
+    margin-bottom: 10px;
+    font-size: 34px;
+    font-weight: 800;
+}
+
+.cta-contenido p {
+    margin-bottom: 23px;
+    color: #f8e9ec;
+    font-size: 15px;
+}
+
+.btn-blanco {
+    background: #ffffff !important;
+    color: #9d1730 !important;
+    border: none !important;
+    border-radius: 8px;
+    padding: 11px 22px;
+    font-weight: 700;
+}
+
+/* ---------- RESPONSIVE INICIO ---------- */
+
+@media (max-width: 767px) {
+
+    .hero {
+        min-height: 460px;
+    }
+
+    .hero-contenido {
+        padding: 60px 0;
+    }
+
+    .hero h1 {
+        font-size: 40px;
+    }
+
+    .hero p {
+        font-size: 15px;
+    }
+
+    .tipos-section,
+    .funciona-section,
+    .sobre-section,
+    .faq-section {
+        padding-bottom: 50px;
+    }
+
+    .confianza-section {
+        padding: 30px 25px;
+    }
+
+    .beneficios-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .publicar-section {
+        padding: 22px;
+    }
+
+    .publicar-imagen {
+        height: 230px;
+    }
+
+    .cta-section {
+        margin-bottom: 50px;
+    }
+}
+
+
+@media (max-width: 575px) {
+
+    .hero {
+        min-height: 470px;
+    }
+
+    .hero h1 {
+        font-size: 34px;
+    }
+
+    .hero p {
+        font-size: 14px;
+    }
+
+    .titulo-seccion h2 {
+        font-size: 27px;
+    }
+
+    .confianza-section {
+        padding: 25px 20px;
+    }
+
+    .publicar-section {
+        padding: 18px;
+    }
+
+    .publicar-section h2 {
+        font-size: 28px;
+    }
+
+    .sobre-contenido {
+        padding: 22px;
+    }
+
+    .cta-contenido h2 {
+        font-size: 28px;
+    }
+}

@@ -1,0 +1,139 @@
+<header class="header">
+  <div class="navbar container">
+    <div class="logo">
+      <a routerLink="/"><img src="/Imagenes/logo cuarto.png" alt="Logo SpaceGo"></a>
+    </div>
+    <button type="button" class="menu-icon" (click)="menuAbierto = !menuAbierto"
+      [attr.aria-expanded]="menuAbierto" aria-controls="menu-principal" aria-label="Abrir o cerrar menú">&#9776;</button>
+    <nav class="menu" id="menu-principal" [class.activo]="menuAbierto" aria-label="Navegación principal">
+      <ul>
+        <li><a routerLink="/" (click)="menuAbierto = false">Inicio</a></li>
+        <li><a routerLink="/buscar" class="activo" (click)="menuAbierto = false"><i class="fa-solid fa-magnifying-glass"></i>Buscar alojamiento</a></li>
+
+        <li><a routerLink="/publicar" (click)="menuAbierto = false"><i class="fa-solid fa-plus"></i>Publicar alojamiento</a></li>
+        <li><a routerLink="/favoritos" (click)="menuAbierto = false"><i class="fa-regular fa-heart"></i>Favoritos</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main class="detalle container">
+  <button class="volver" type="button" (click)="volver()">← {{ textoVolver }}</button>
+  @if (cargando) {
+    <section class="estado" role="status">Cargando los detalles del alojamiento…</section>
+  } @else if (error) {
+    <section class="estado" role="alert">
+      <h1>Alojamiento no disponible</h1><p>{{ error }}</p>
+      <button class="accion principal" type="button" (click)="volver()">{{ textoVolver }}</button>
+    </section>
+  } @else if (alojamiento) {
+    <div class="encabezado-detalle">
+      <span class="etiqueta">{{ obtenerNombreTipo(alojamiento.tipo) }}</span>
+      <h1>{{ alojamiento.titulo }}</h1>
+      <p class="ubicacion"><i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+        {{ alojamiento.distrito }} · {{ alojamiento.provincia }} · {{ alojamiento.departamento }}</p>
+    </div>
+    <div class="detalle-grid">
+      <div class="contenido-detalle">
+        <section class="galeria" aria-label="Fotografías del alojamiento">
+          @if (imagenes.length) {
+            <div class="foto-contenedor">
+              <img class="foto-principal" [src]="imagenes[indiceImagen]" [alt]="alojamiento.titulo + ', foto ' + (indiceImagen + 1)" (error)="imagenFallida($event)">
+              <span class="contador" aria-live="polite">{{ indiceImagen + 1 }} / {{ imagenes.length }}</span>
+              @if (imagenes.length > 1) {
+                <button class="flecha anterior" type="button" (click)="imagenAnterior()" aria-label="Foto anterior">‹</button>
+                <button class="flecha siguiente" type="button" (click)="imagenSiguiente()" aria-label="Foto siguiente">›</button>
+              }
+            </div>
+            @if (imagenes.length > 1) {
+              <div class="miniaturas">
+                @for (foto of imagenes; track foto; let i = $index) {
+                  <button type="button" [class.seleccionada]="indiceImagen === i" (click)="indiceImagen = i" [attr.aria-label]="'Ver foto ' + (i + 1)" [attr.aria-pressed]="indiceImagen === i">
+                    <img [src]="foto" alt="" (error)="imagenFallida($event)">
+                  </button>
+                }
+              </div>
+            }
+          } @else {
+            <div class="estado">Este anuncio aún no tiene fotografías.</div>
+          }
+        </section>
+        <section class="panel">
+          <span class="subtitulo">CONOCE EL ESPACIO</span><h2>Sobre este alojamiento</h2>
+          <p class="descripcion">{{ alojamiento.descripcion || 'El propietario aún no ha añadido una descripción.' }}</p>
+          <dl class="datos">
+            <div><dt>Tipo de espacio</dt><dd>{{ obtenerNombreTipo(alojamiento.tipo) }}</dd></div>
+            <div><dt>Distrito</dt><dd>{{ alojamiento.distrito }}</dd></div>
+            @if (alojamiento.capacidad) { <div><dt>Capacidad</dt><dd>{{ alojamiento.capacidad }}</dd></div> }
+            @if (alojamiento.referencia) { <div><dt>Referencia</dt><dd>{{ alojamiento.referencia }}</dd></div> }
+          </dl>
+        </section>
+        <section class="panel">
+          <span class="subtitulo">ANTES DE ELEGIR</span><h2>Servicios y características</h2>
+          @if (serviciosIncluidos.length) {
+            <ul class="servicios">@for (servicio of serviciosIncluidos; track $index) { <li><span aria-hidden="true">✓</span> {{ servicio }}</li> }</ul>
+          } @else { <p class="nota">El anuncio no detalla los servicios incluidos. Confírmalos con el propietario antes de acordar el alquiler.</p> }
+          @if (serviciosNoIncluidos.length) {
+            <h3>No incluidos</h3><ul class="servicios">@for (servicio of serviciosNoIncluidos; track $index) { <li>— {{ servicio }}</li> }</ul>
+          }
+        </section>
+        <section class="panel">
+          <span class="subtitulo">EXPLORA LA ZONA</span><h2>Ubicación</h2>
+          <p>{{ alojamiento.distrito }}, {{ alojamiento.provincia }}, {{ alojamiento.departamento }}</p>
+          @if (mapaUrl) {
+            <iframe class="mapa" [src]="mapaUrl" title="Mapa del alojamiento" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+          }
+          <p class="nota">{{ mapaTieneCoordenadas ? 'Ubicación indicada en el anuncio.' : 'El mapa muestra una zona aproximada. Solicita la dirección exacta al propietario.' }}</p>
+        </section>
+      </div>
+      <aside class="resumen" aria-label="Precio y contacto">
+        <span class="subtitulo">ALQUILER MENSUAL</span>
+        <p class="precio">{{ alojamiento.precio | currency:'PEN':'S/ ':'1.2-2' }} <span>/ mes</span></p>
+        <p class="nota">Consulta las condiciones de alquiler y los gastos adicionales con el propietario.</p>
+        <hr>
+        <h2>¿Te interesa este espacio?</h2>
+        <p>Guárdalo para comparar o contacta al propietario para conocer más.</p>
+        <button class="accion principal" type="button" (click)="agregarAFavoritos()" [disabled]="agregandoFavorito || favoritoGuardado">
+          {{ agregandoFavorito ? 'Guardando…' : favoritoGuardado ? '✓ Guardado en favoritos' : '♡ Agregar a favoritos' }}
+        </button>
+        @if (favoritoGuardado) { <a class="enlace-favoritos" routerLink="/favoritos">Ver mis favoritos →</a> }
+        @if (errorFavorito) { <p class="error" role="alert">{{ errorFavorito }}</p> }
+        @if (alojamiento.contacto?.telefono) {
+          <a class="accion secundaria" [href]="'tel:' + alojamiento.contacto?.telefono">Llamar al propietario</a>
+        }
+        @if (alojamiento.contacto?.correo) {
+          <a class="accion secundaria" [href]="'mailto:' + alojamiento.contacto?.correo">Escribir por correo</a>
+        }
+        @if (!alojamiento.contacto?.telefono && !alojamiento.contacto?.correo) {
+          <p class="sin-contacto">Este anuncio aún no incluye datos de contacto.</p>
+        }
+        <div class="consejo"><strong>Organiza una visita</strong><p>Conoce el espacio y confirma sus condiciones antes de realizar un pago.</p></div>
+      </aside>
+    </div>
+  }
+</main>
+<footer class="footer">
+  <div class="footer-container container">
+    <div class="footer-box">
+      <div class="footer-logo"><img src="/Imagenes/logo cuarto.png" alt="Logo SpaceGo"></div>
+      <p>Una plataforma pensada para ayudarte a encontrar el espacio que necesitas.</p>
+    </div>
+    <div class="footer-box">
+      <h3>Información</h3>
+      <p>SpaceGo es una plataforma creada para facilitar la búsqueda de espacios de alojamiento de manera sencilla, clara y práctica.</p>
+      <p>Conectamos a personas que buscan un lugar donde vivir con propietarios que desean publicar sus espacios.</p>
+    </div>
+    <div class="footer-box">
+      <h3>Contacto</h3>
+      <p><i class="fa-solid fa-phone"></i>+51 987 654 321</p>
+      <p><i class="fa-solid fa-envelope"></i>contacto@spacego.pe</p>
+      <p><i class="fa-solid fa-location-dot"></i>Perú</p>
+      <div class="redes">
+        <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook"></i></a>
+        <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+        <a href="#" aria-label="TikTok"><i class="fa-brands fa-tiktok"></i></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom"><p>© 2026 SpaceGo - Todos los derechos reservados</p></div>
+</footer>

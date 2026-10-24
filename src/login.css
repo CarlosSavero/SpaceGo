@@ -1,0 +1,407 @@
+/* ==========================================================================
+   ESTILO DEL BOTÓN DE LOGIN EN LA BARRA DE NAVEGACIÓN
+   ========================================================================== */
+.btn-login-nav {
+    background-color: #8b1d31 !important;
+    color: #ffffff !important;
+    border: none !important;
+    padding: 8px 20px !important;
+    border-radius: 25px !important;
+    font-weight: 600 !important;
+    font-size: 0.9rem !important;
+    text-decoration: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    box-shadow: 0 4px 10px rgba(139, 29, 49, 0.25);
+    transition: all 0.3s ease !important;
+}
+
+.btn-login-nav:hover {
+    background-color: #6a1424 !important;
+    color: #ffffff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 14px rgba(139, 29, 49, 0.35);
+}
+
+/* ==========================================================================
+   PÁGINA DE LOGIN DIVIDIDA (SPLIT SCREEN)
+   ========================================================================== */
+body.login-page {
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    background-color: #ffffff;
+    overflow-x: hidden;
+}
+
+.split-container {
+    display: flex;
+    min-height: 100vh;
+    width: 100vw;
+}
+
+/* Panel Izquierdo Visual */
+.visual-panel {
+    flex: 1.1;
+    background: url('/Imagenes/alojamiento.jpg') center/cover no-repeat;
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    padding: 60px;
+}
+
+.overlay-visual {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(15, 23, 42, 0.35) 0%, rgba(139, 29, 49, 0.88) 100%);
+}
+
+.visual-content {
+    position: relative;
+    z-index: 2;
+    color: #ffffff;
+    max-width: 480px;
+}
+
+/* Logo */
+.brand-logo {
+    display: inline-block;
+    margin-bottom: 25px;
+}
+
+.brand-logo img {
+    height: 52px;
+    width: auto;
+    object-fit: contain;
+    background: #ffffff;
+    padding: 8px 18px;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+}
+
+.hero-quote h2 {
+    font-size: 2.1rem;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-bottom: 14px;
+}
+
+.hero-quote p {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.5;
+    margin-bottom: 35px;
+}
+
+.stats-card {
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 16px 24px;
+    border-radius: 14px;
+    gap: 25px;
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-num {
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+.stat-desc {
+    font-size: 0.78rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.stat-divider {
+    width: 1px;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.25);
+}
+
+/* Panel Derecho Formulario */
+.form-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    position: relative;
+    background: #ffffff;
+}
+
+.btn-volver {
+    position: absolute;
+    top: 35px;
+    left: 40px;
+    color: #64748b;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.2s;
+}
+
+.btn-volver:hover {
+    color: #8b1d31;
+}
+
+.form-wrapper {
+    width: 100%;
+    max-width: 380px;
+}
+
+/* Pestañas */
+.auth-tabs {
+    display: flex;
+    background: #f1f5f9;
+    padding: 4px;
+    border-radius: 12px;
+    margin-bottom: 28px;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    background: transparent;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #64748b;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.25s;
+}
+
+.tab-btn.active {
+    background: #ffffff;
+    color: #8b1d31;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+/* Formulario */
+.auth-form {
+    display: none;
+    flex-direction: column;
+}
+
+.auth-form.active {
+    display: flex;
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.form-header h2 {
+    font-size: 1.65rem;
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 6px;
+}
+
+.form-header p {
+    font-size: 0.88rem;
+    color: #64748b;
+    margin-bottom: 22px;
+}
+
+/* Login Social con colores de marca */
+.social-login {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.btn-social {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    background: #ffffff;
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: #334155;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.25s ease;
+}
+
+/* Colores e iconos de Google */
+.btn-google i {
+    color: #ea4335;
+    font-size: 1rem;
+}
+
+.btn-google:hover {
+    background: #fdf2f2;
+    border-color: #f87171;
+    color: #dc2626;
+    box-shadow: 0 2px 8px rgba(234, 67, 53, 0.15);
+}
+
+/* Colores e iconos de Facebook */
+.btn-facebook i {
+    color: #1877f2;
+    font-size: 1rem;
+}
+
+.btn-facebook:hover {
+    background: #f0f6ff;
+    border-color: #60a5fa;
+    color: #1d4ed8;
+    box-shadow: 0 2px 8px rgba(24, 119, 242, 0.15);
+}
+
+.divider {
+    text-align: center;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: #e2e8f0;
+}
+
+.divider span {
+    position: relative;
+    background: #ffffff;
+    padding: 0 10px;
+    font-size: 0.78rem;
+    color: #94a3b8;
+}
+
+/* Campos de entrada */
+.input-field {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+}
+
+.input-field label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #334155;
+    margin-bottom: 5px;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.field-icon {
+    position: absolute;
+    left: 14px;
+    color: #94a3b8;
+    font-size: 0.9rem;
+}
+
+.input-wrapper input {
+    width: 100%;
+    padding: 11px 14px 11px 40px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    color: #0f172a;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.input-wrapper input:focus {
+    border-color: #8b1d31;
+    box-shadow: 0 0 0 4px rgba(139, 29, 49, 0.1);
+}
+
+.toggle-password {
+    position: absolute;
+    right: 14px;
+    color: #94a3b8;
+    cursor: pointer;
+    font-size: 0.9rem;
+}
+
+.toggle-password:hover {
+    color: #475569;
+}
+
+/* Opciones y Submit */
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+    font-size: 0.82rem;
+}
+
+.remember-me {
+    color: #475569;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.forgot-pass {
+    color: #8b1d31;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.forgot-pass:hover {
+    text-decoration: underline;
+}
+
+.btn-submit {
+    width: 100%;
+    padding: 12px;
+    background: #8b1d31;
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.2s;
+    box-shadow: 0 4px 12px rgba(139, 29, 49, 0.25);
+}
+
+.btn-submit:hover {
+    background: #6a1424;
+    box-shadow: 0 6px 16px rgba(139, 29, 49, 0.35);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .visual-panel { display: none; }
+    .btn-volver { left: 20px; top: 20px; }
+    .form-panel { padding: 80px 20px 40px; }
+}
