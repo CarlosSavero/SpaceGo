@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
 import { of, throwError } from 'rxjs';
 
 import { AlojamientoService } from '../core/services/alojamiento.service';
@@ -42,7 +43,10 @@ describe('Favoritos', () => {
 
     await TestBed.configureTestingModule({
       imports: [Favoritos],
-      providers: [{ provide: AlojamientoService, useValue: servicioSimulado }]
+      providers: [
+        provideHttpClient(),
+        { provide: AlojamientoService, useValue: servicioSimulado }
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(Favoritos);

@@ -12,6 +12,20 @@ ng serve
 
 Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
+## Local login demo
+
+The login and registration demo stores users in `db.json` through JSON Server. Start
+the API and Angular app in separate terminals:
+
+```bash
+npm run api
+npm start
+```
+
+Open `http://localhost:4200/login` to register or sign in. The API must be running
+on port 3000. This JSON Server flow is for local development only; it is not a
+secure production authentication system.
+
 ## Code scaffolding
 
 Angular CLI includes powerful code scaffolding tools. To generate a new component, run:

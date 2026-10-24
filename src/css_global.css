@@ -95,6 +95,31 @@ img {
     font-weight: 700;
 }
 
+.menu .auth-user span,
+.menu .btn-logout-nav {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--negro);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.menu .btn-logout-nav {
+    border: 1px solid var(--vino);
+    border-radius: 8px;
+    background: transparent;
+    color: var(--vino);
+    padding: 9px 12px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.menu .btn-logout-nav:hover {
+    background: var(--vino);
+    color: #fff;
+}
+
 /* ---------- BOTÓN MENÚ MÓVIL ---------- */
 
 .menu-icon {

@@ -8,6 +8,7 @@ import {
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 
 import { AlojamientoService } from '../core/services/alojamiento.service';
+import { AuthService } from '../core/services/auth.service';
 import { Alojamiento } from '../models/alojamiento';
 
 @Component({
@@ -18,11 +19,17 @@ import { Alojamiento } from '../models/alojamiento';
   styleUrl: './buscar.css'
 })
 export class Buscar implements OnInit {
+  readonly auth = inject(AuthService);
 
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   menuAbierto = false;
   get urlBusqueda(): string { return this.router.url; }
+
+  cerrarSesion(): void {
+    this.auth.cerrarSesion();
+    this.menuAbierto = false;
+  }
 
   private fb = inject(FormBuilder);
   private alojamientoService = inject(AlojamientoService);

@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { AuthService } from '../core/services/auth.service';
 
 @Component({
   selector: 'app-inicio',
@@ -9,6 +10,7 @@ import { RouterLink } from '@angular/router';
   styleUrl: './inicio.css'
 })
 export class Inicio {
+  readonly auth = inject(AuthService);
 
   faqAbierta: number | null = null;
 

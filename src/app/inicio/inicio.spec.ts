@@ -22,4 +22,24 @@ describe('Inicio', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('shows the signed-in profile and logs out from the navigation', () => {
+    component.auth.usuario.set({
+      id: '1',
+      nombre: 'María',
+      correo: 'maria@example.com'
+    });
+    fixture.detectChanges();
+
+    expect(fixture.nativeElement.textContent).toContain('María');
+    expect(fixture.nativeElement.textContent).toContain('Cerrar sesión');
+    expect(fixture.nativeElement.querySelector('a[href="/login"]')).toBeNull();
+
+    fixture.nativeElement.querySelector('.btn-logout-nav').click();
+    fixture.detectChanges();
+
+    expect(component.auth.usuario()).toBeNull();
+    expect(fixture.nativeElement.textContent).toContain('Iniciar Sesión');
+    expect(fixture.nativeElement.querySelector('.btn-logout-nav')).toBeNull();
+  });
 });

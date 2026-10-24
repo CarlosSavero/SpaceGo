@@ -30,6 +30,12 @@
                         Favoritos
                     </a>
                 </li>
+                @if (auth.usuario(); as usuario) {
+                    <li class="auth-user"><span><i class="fa-solid fa-user" aria-hidden="true"></i> {{ usuario.nombre }}</span></li>
+                    <li><button type="button" class="btn-logout-nav" (click)="cerrarSesion()"><i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i> Cerrar sesión</button></li>
+                } @else {
+                    <li><a routerLink="/login" class="btn-login-nav"><i class="fa-solid fa-user" aria-hidden="true"></i> Iniciar sesión</a></li>
+                }
             </ul>
         </nav>
     </div>

@@ -44,11 +44,21 @@
         <div class="form-wrapper">
 
             <div class="auth-tabs">
-                <button type="button" class="tab-btn active">
+                <button
+                    type="button"
+                    class="tab-btn"
+                    [class.active]="vistaActiva === 'login'"
+                    [attr.aria-selected]="vistaActiva === 'login'"
+                    (click)="cambiarVista('login')">
                     Iniciar Sesión
                 </button>
 
-                <button type="button" class="tab-btn">
+                <button
+                    type="button"
+                    class="tab-btn"
+                    [class.active]="vistaActiva === 'registro'"
+                    [attr.aria-selected]="vistaActiva === 'registro'"
+                    (click)="cambiarVista('registro')">
                     Registrarse
                 </button>
             </div>
@@ -57,7 +67,8 @@
             <form
                 [formGroup]="loginForm"
                 (ngSubmit)="iniciarSesion()"
-                class="auth-form active">
+                class="auth-form"
+                [class.active]="vistaActiva === 'login'">
 
                 <div class="form-header">
                     <h2>¡Hola de nuevo! 👋</h2>
@@ -65,6 +76,10 @@
                         Ingresa tus credenciales para acceder a tu cuenta.
                     </p>
                 </div>
+
+                @if (errorLogin) {
+                    <small class="campo-error" role="alert">{{ errorLogin }}</small>
+                }
 
                 <div class="social-login">
                     <button type="button" class="btn-social btn-google">
@@ -145,8 +160,8 @@
                     </a>
                 </div>
 
-                <button type="submit" class="btn-submit">
-                    Iniciar Sesión
+                <button type="submit" class="btn-submit" [disabled]="cargandoLogin">
+                    {{ cargandoLogin ? 'Verificando...' : 'Iniciar Sesión' }}
                     <i class="fa-solid fa-arrow-right"></i>
                 </button>
 
@@ -156,7 +171,8 @@
             <form
                 [formGroup]="registerForm"
                 (ngSubmit)="registrarse()"
-                class="auth-form">
+                class="auth-form"
+                [class.active]="vistaActiva === 'registro'">
 
                 <div class="form-header">
                     <h2>Crea tu cuenta 🚀</h2>
@@ -164,6 +180,10 @@
                         Únete a SpaceGo y encuentra tu nuevo espacio.
                     </p>
                 </div>
+
+                @if (errorRegistro) {
+                    <small class="campo-error" role="alert">{{ errorRegistro }}</small>
+                }
 
                 <div class="input-field">
                     <label for="reg-name">
@@ -249,8 +269,15 @@
                     </label>
                 </div>
 
-                <button type="submit" class="btn-submit">
-                    Crear Cuenta
+                @if (registerForm.controls.terms.touched &&
+                     registerForm.controls.terms.invalid) {
+                    <small class="campo-error" role="alert">
+                        Debes aceptar los términos y condiciones.
+                    </small>
+                }
+
+                <button type="submit" class="btn-submit" [disabled]="cargandoRegistro">
+                    {{ cargandoRegistro ? 'Creando cuenta...' : 'Crear Cuenta' }}
                     <i class="fa-solid fa-arrow-right"></i>
                 </button>
 

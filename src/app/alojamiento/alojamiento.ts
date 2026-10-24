@@ -6,6 +6,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { combineLatest, of } from 'rxjs';
 import { catchError, distinctUntilChanged, map, switchMap, tap } from 'rxjs/operators';
 import { AlojamientoService } from '../core/services/alojamiento.service';
+import { AuthService } from '../core/services/auth.service';
 import { Alojamiento as AlojamientoModel } from '../models/alojamiento';
 
 type DetalleAlojamiento = AlojamientoModel;
@@ -22,6 +23,7 @@ export class Alojamiento implements OnInit {
   private readonly route = inject(ActivatedRoute);
   private readonly router = inject(Router);
   private readonly alojamientoService = inject(AlojamientoService);
+  readonly auth = inject(AuthService);
   private readonly sanitizer = inject(DomSanitizer);
   private readonly destroyRef = inject(DestroyRef);
   private readonly cdr = inject(ChangeDetectorRef);
@@ -47,6 +49,11 @@ export class Alojamiento implements OnInit {
   volver(): void {
     if (history.state?.spacegoOrigen === this.volverUrl) this.location.back();
     else void this.router.navigateByUrl(this.volverUrl);
+  }
+
+  cerrarSesion(): void {
+    this.auth.cerrarSesion();
+    this.menuAbierto = false;
   }
 
   imagenFallida(event: Event): void {

@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
 import { ActivatedRoute, convertToParamMap, provideRouter } from '@angular/router';
 import { BehaviorSubject, of } from 'rxjs';
 import { Alojamiento } from './alojamiento';
@@ -42,6 +43,7 @@ describe('Alojamiento - detalles dinámicos', () => {
     await TestBed.configureTestingModule({
       imports: [Alojamiento],
       providers: [
+        provideHttpClient(),
         provideRouter([]),
         { provide: ActivatedRoute, useValue: { paramMap: ruta$, queryParamMap: consulta$ } },
         { provide: AlojamientoService, useValue: servicioDePrueba }

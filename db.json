@@ -179,5 +179,14 @@
       "id": "XOj9trnDDUc"
     }
   ],
+  "usuarios": [
+    {
+      "nombre": "yeff",
+      "correo": "yeff@gmail.com",
+      "salt": "ba8e4eef396c9d06ec55e85ed75c0965",
+      "passwordHash": "a444a2daa803f3f4dd402ca851bd3a1aac69154070187b7fb371556540719b63",
+      "id": "soXWTlMFQ5c"
+    }
+  ],
   "$schema": "./node_modules/json-server/schema.json"
 }

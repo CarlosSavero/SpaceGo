@@ -6,6 +6,7 @@ import { forkJoin } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { AlojamientoService } from '../core/services/alojamiento.service';
+import { AuthService } from '../core/services/auth.service';
 
 /** Modelo de presentación: evita depender de campos opcionales del modelo del backend. */
 interface AlojamientoFavorito {
@@ -84,6 +85,7 @@ const CACHE_CLIMA_MS = 10 * 60 * 1000;
 })
 export class Favoritos implements OnInit {
   private readonly alojamientoService = inject(AlojamientoService);
+  readonly auth = inject(AuthService);
   private readonly fb = inject(FormBuilder);
   private readonly destroyRef = inject(DestroyRef);
 
@@ -277,6 +279,11 @@ export class Favoritos implements OnInit {
 
   cerrarMenu(): void {
     this.menuAbierto.set(false);
+  }
+
+  cerrarSesion(): void {
+    this.auth.cerrarSesion();
+    this.cerrarMenu();
   }
 
   climaPara(alojamiento: AlojamientoFavorito): EstadoClima {

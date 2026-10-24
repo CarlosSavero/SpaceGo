@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { AuthService } from '../core/services/auth.service';
 import { RouterLink } from '@angular/router';
 import {
   FormBuilder,
@@ -29,6 +30,11 @@ export class Publicar {
 
   private fb = inject(FormBuilder);
   private alojamientoService = inject(AlojamientoService);
+  readonly auth = inject(AuthService);
+
+  cerrarSesion(): void {
+    this.auth.cerrarSesion();
+  }
 
   pasoActual = 1;
   totalPasos = 5;

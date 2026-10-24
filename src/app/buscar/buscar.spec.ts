@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
 import { provideRouter } from '@angular/router';
 import { RouterTestingHarness } from '@angular/router/testing';
 import { of } from 'rxjs';
@@ -11,7 +12,7 @@ const anuncios = [
 ];
 describe('Buscar - navegación con filtros', () => {
   beforeEach(() => TestBed.configureTestingModule({
-    providers: [provideRouter([{path:'buscar', component:Buscar}]),
+    providers: [provideHttpClient(), provideRouter([{path:'buscar', component:Buscar}]),
       {provide:AlojamientoService, useValue:{obtenerAlojamientos:()=>of(anuncios)}}]
   }));
   it('restaura filtros desde la URL al volver o recargar', async () => {
